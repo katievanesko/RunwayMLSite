@@ -1,57 +1,3 @@
-function random_bg_color() {
-    var x = Math.floor(Math.random() * 256);
-    var y = Math.floor(Math.random() * 256);
-    var z = Math.floor(Math.random() * 256);
-    var bgColor = "rgb(" + x + "," + y + "," + z + ")";
-    // console.log(bgColor);
-
-    document.body.style.background = bgColor;
-}
-
-random_bg_color();
-
-function random_text_size(min, max) {
-    min = Math.ceil(1);
-    max = Math.floor(20);
-    var txt = Math.floor(Math.random() * (max - min) + min);
-
-    var txtSize = txt + "px";
-    console.log(txtSize);
-    document.getElementById("txt").style.fontSize = txtSize;
-}
-
-random_text_size();
-
-// function random_speed() {
-//     var imgIds = ["original", "parsed", "result"];
-//     var idx = 0;
-
-//     document.getElementById(imgIds[1]).style.display = "none";
-//     document.getElementById(imgIds[2]).style.display = "none";
-
-//     var speed = Math.floor(Math.random() * 1000);
-
-//     while (true) {
-//         if (idx == 0) {
-//             setTimeout(() => { document.getElementById(imgIds[0]).style.display = "none"; }, speed);
-//             document.getElementById(imgIds[1]).style.display = "block";
-//             idx = 1;
-//         }
-//         else if (idx == 1) {
-//             setTimeout(() => { document.getElementById(imgIds[1]).style.display = "none"; }, speed);
-//             document.getElementById(imgIds[2]).style.display = "block";
-//             idx = 2;
-//         }
-//         else {
-//             setTimeout(() => { document.getElementById(imgIds[2]).style.display = "none"; }, speed);
-//             document.getElementById(imgIds[0]).style.display = "block";
-//             idx = 0;
-//         }
-//     }
-// }
-// random_speed();
-
-
 var animalSets = []
 var rodents = ["rodent_1.png", "rodent_2.png", "rodent_3.png"];
 var pigs = ["pig_1.jpeg", "pig_2.png", "pig_3.png"];
@@ -105,19 +51,89 @@ animalSets.push(doggos);
 animalSets.push(sheep);
 animalSets.push(hummingbirds);
 
+update_pics();
 
-document.getElementById("refresh_btn").addEventListener("click", updatePics);
+function random_size(orientation) {
+    if (orientation == "horz") { //width < 100%
 
-function updatePics() {
-    idx = Math.floor(Math.random() * animalSets.length);
+    }
+    else if (orientation == "vert") { //height < 100 %
+
+    }
+    else { //width & height < 100%
+
+    }
+
+
+    // var h1 = Math.floor(Math.random() * 100) + 100;
+    // var h2 = h1 + Math.floor(Math.random() * h1);
+    // if (h2 > 400) {
+    //     h3 = 400;
+    // }
+    // var h3 = h2 + Math.floor(Math.random() * h2);
+    // if (h3 > 500) {
+    //     h3 = 500;
+    // }
+    // console.log("h1 = " + h1 + ", h2= " + h2 + ", h3 = " + h3)
+    // // }
+
+    // var orig_img = document.getElementById("original");
+    // orig_img.style.height = h1 + "px";
+    // orig_img.style.width = (h1 * 1.2) + "px";
+
+    // var parsed_img = document.getElementById("parsed")
+    // parsed_img.setAttribute('height', h2 + "px");
+    // parsed_img.setAttribute('width', (h2 * 1.2) + "px");
+
+    // var res_img = document.getElementById("result")
+    // res_img.setAttribute('height', h3 + "px");
+    // res_img.setAttribute('width', (h3 * 1.2) + "px");
+}
+
+function random_spacing() {
+    var spacing = "";
+    var rand = Math.floor(Math.random() * 5);
+    if (rand < 1) {
+        spacing = "center-top";
+        random_size("horz");
+    }
+    else if (rand >= 1 && rand < 2) {
+        spacing = "center-center";
+        random_size("horz");
+    }
+    else if (rand >= 2 && rand < 3) {
+        spacing = "left-top"
+        random_size("vert");
+    }
+    else if (rand >= 3 && rand < 4) {
+        spacing = "right-bottom"
+        random_size("vert");
+    }
+    else if (rand >= 4 && rand < 5) {
+        spacing = "center-bottom"
+        random_size("diag");
+    }
+
+    var image_div = document.getElementById("img-container");
+    console.log(image_div);
+    var curr = image_div.classList;
+
+    if (curr.length > 0) {
+        image_div.classList.replace(curr[0], spacing);
+    }
+    else {
+        image_div.classList.add(spacing);
+    }
+}
+
+function update_pics() {
+
+    //update photos shown
+    var idx = Math.floor(Math.random() * animalSets.length);
     var animalSet = animalSets[idx];
     document.getElementById("original").setAttribute('src', 'images/'.concat(animalSet[0]));
     document.getElementById("parsed").setAttribute('src', 'images/'.concat(animalSet[1]));
     document.getElementById("result").setAttribute('src', 'images/'.concat(animalSet[2]));
+
+    random_spacing();
 }
-
-
-
-//variables:
-//size -- small to large or large to small
-//speed

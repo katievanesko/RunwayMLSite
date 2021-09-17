@@ -4,23 +4,70 @@
 html {
     box-sizing: border-box;
     font-size: 16px;
-  }
-  
-  *, *:before, *:after {
+}
+
+ *, *:before, *:after {
     box-sizing: inherit;
-  }
+}
   
-  /* adjust typography defaults */
-  body {
+body {
     margin: 1rem;
     font-family: sans-serif;
     line-height: 1.5;
-  }
-  
-  /* images and videos max out at full width */
-  img,
-  video {
-    height: 300px;
-    width: 360px;
-  }
+    background-color: black;
+}
 
+img {
+    padding: 10px;
+}
+
+
+.center-top {
+    /* background-color: blueviolet; */
+    text-align: center;
+}
+.center-top > img {
+    display:inline-block;
+}
+
+
+.center-center {
+    /* background-color: chartreuse; */
+    text-align: center;
+    vertical-align: middle;
+}
+.center-center > img {
+    display:inline-block;
+}
+
+
+.left-top {
+    /* background-color: coral; */
+    text-align: center;
+    vertical-align: middle;
+}
+.left-top > img {
+    display: block;
+}
+
+
+.right-bottom {
+    /* background-color: cornflowerblue; */
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.right-bottom > img{
+    display: block;
+    margin-right: 10px;
+}
+
+
+.center-bottom{
+    /* background-color:hotpink; */
+
+}
+.center-bottom > img{
+
+}
+ 
