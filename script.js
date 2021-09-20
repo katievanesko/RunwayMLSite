@@ -59,9 +59,9 @@ function random_size(orientation) {
     var res_img = document.getElementById("result");
 
     if (orientation == "vert") {  //height < 100 %
-        var h1 = Math.floor(Math.random() * 100) + 275;
-        var h2 = Math.floor(Math.random() * 75) + 175;
-        var h3 = Math.floor(Math.random() * 50) + 75;
+        var h1 = Math.floor(Math.random() * 100) + 250;
+        var h2 = Math.floor(Math.random() * 75) + 150;
+        var h3 = Math.floor(Math.random() * 50) + 50;
 
         res_img.style.height = h1 + "px";
         res_img.style.width = (h1 * 1.2) + "px";
@@ -91,7 +91,7 @@ function random_size(orientation) {
 
 function random_spacing() {
     var spacing = "";
-    var rand = Math.floor(Math.random() * 4);
+    var rand = Math.floor(Math.random() * 5);
     if (rand < 1) {
         spacing = "center-top";
         random_size("horz");
@@ -108,10 +108,14 @@ function random_spacing() {
         spacing = "right-bottom"
         random_size("vert");
     }
+    else if (rand >= 4 && rand < 5) {
+        spacing = "center-bottom"
+        random_size("horz");
+    }
 
     var image_div = document.getElementById("img-container");
     var curr = image_div.classList;
-    
+
     if (curr.length > 0) {
         image_div.classList.replace(curr[0], spacing);
     }
