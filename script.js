@@ -54,45 +54,44 @@ animalSets.push(hummingbirds);
 update_pics();
 
 function random_size(orientation) {
-    if (orientation == "horz") { //width < 100%
+    var orig_img = document.getElementById("original");
+    var parsed_img = document.getElementById("parsed");
+    var res_img = document.getElementById("result");
+
+    if (orientation == "vert") {  //height < 100 %
+        var h1 = Math.floor(Math.random() * 100) + 275;
+        var h2 = Math.floor(Math.random() * 75) + 175;
+        var h3 = Math.floor(Math.random() * 50) + 75;
+
+        res_img.style.height = h1 + "px";
+        res_img.style.width = (h1 * 1.2) + "px";
+
+        parsed_img.style.height =  h2 + "px";
+        parsed_img.style.width = (h2 * 1.2) + "px";
+
+        orig_img.style.height =  h3 + "px";
+        orig_img.style.width = (h3 * 1.2) + "px";
 
     }
-    else if (orientation == "vert") { //height < 100 %
+    else if (orientation == "horz") { //width < 100%
+        var w1 = Math.floor(Math.random() * 200) + 500; 
+        var w2 = Math.floor(Math.random() * 150) + 300; 
+        var w3 = Math.floor(Math.random() * 50) + 200; 
 
+        res_img.style.height = (w1/1.2) + "px";
+        res_img.style.width = w1 + "px";
+
+        parsed_img.style.height =  (w2/1.2) + "px";
+        parsed_img.style.width = w2 + "px";
+
+        orig_img.style.height =  (w3/1.2) + "px";
+        orig_img.style.width = w3 + "px";
     }
-    else { //width & height < 100%
-
-    }
-
-
-    // var h1 = Math.floor(Math.random() * 100) + 100;
-    // var h2 = h1 + Math.floor(Math.random() * h1);
-    // if (h2 > 400) {
-    //     h3 = 400;
-    // }
-    // var h3 = h2 + Math.floor(Math.random() * h2);
-    // if (h3 > 500) {
-    //     h3 = 500;
-    // }
-    // console.log("h1 = " + h1 + ", h2= " + h2 + ", h3 = " + h3)
-    // // }
-
-    // var orig_img = document.getElementById("original");
-    // orig_img.style.height = h1 + "px";
-    // orig_img.style.width = (h1 * 1.2) + "px";
-
-    // var parsed_img = document.getElementById("parsed")
-    // parsed_img.setAttribute('height', h2 + "px");
-    // parsed_img.setAttribute('width', (h2 * 1.2) + "px");
-
-    // var res_img = document.getElementById("result")
-    // res_img.setAttribute('height', h3 + "px");
-    // res_img.setAttribute('width', (h3 * 1.2) + "px");
 }
 
 function random_spacing() {
     var spacing = "";
-    var rand = Math.floor(Math.random() * 5);
+    var rand = Math.floor(Math.random() * 4);
     if (rand < 1) {
         spacing = "center-top";
         random_size("horz");
@@ -109,15 +108,10 @@ function random_spacing() {
         spacing = "right-bottom"
         random_size("vert");
     }
-    else if (rand >= 4 && rand < 5) {
-        spacing = "center-bottom"
-        random_size("diag");
-    }
 
     var image_div = document.getElementById("img-container");
-    console.log(image_div);
     var curr = image_div.classList;
-
+    
     if (curr.length > 0) {
         image_div.classList.replace(curr[0], spacing);
     }
