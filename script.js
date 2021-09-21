@@ -53,7 +53,13 @@ animalSets.push(hummingbirds);
 
 update_pics();
 
-function random_size(orientation) {
+//COME UP WITH SOMETHING MORE: ANCHOR POINT LIKE TEXT-- name the animals or something
+//FIX WHITE EDGES
+
+function random_size(orientation) { //UPADATE BASED ON WINDOW SIZE SO IT DOESNT GO OVER
+    var window_width = window.innerWidth;
+    var window_height = window.innerHeight;
+    
     var orig_img = document.getElementById("original");
     var parsed_img = document.getElementById("parsed");
     var res_img = document.getElementById("result");
