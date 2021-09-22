@@ -19,6 +19,16 @@ body {
   background-color: black;
 }
 
+button {
+  font-size: xx-large;
+  position: absolute;
+  z-index: 10;
+}
+
+#img-container {
+  z-index: 0;
+}
+
 img {
   padding: 10px;
 }

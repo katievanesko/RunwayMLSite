@@ -51,15 +51,32 @@ animalSets.push(doggos);
 animalSets.push(sheep);
 animalSets.push(hummingbirds);
 
-update_pics();
+
+var animal_set = 0;
+setup_btn();
+
+window.onload = function() {
+    update_pics();
+}  
+
 
 //COME UP WITH SOMETHING MORE: ANCHOR POINT LIKE TEXT-- name the animals or something
-//FIX WHITE EDGES
 
-function random_size(orientation) { //UPADATE BASED ON WINDOW SIZE SO IT DOESNT GO OVER, 
-                                    //also calculation to see how centered it can be based off how much of the 
-                                    //screen all images take up
-                                    //PICTURES + 10PX PADDING ALL SIDES
+function setup_btn() { 
+    var btn = document.getElementById("refresh");
+    random_btn_spot();
+    btn.addEventListener("click", update_pics);
+}
+
+function random_btn_spot(){
+    var top = Math.floor(Math.random()*95);
+    var left = Math.floor(Math.random()*95);
+    var btn = document.getElementById("refresh");
+    btn.style.top = top + "%";
+    btn.style.left = left + "%";
+}
+
+function random_size(orientation) { 
     var window_width = window.innerWidth;
     var window_height = window.innerHeight;
     console.log(window_width);
@@ -128,6 +145,7 @@ function center_appropriately_w() {
     var container = document.getElementById("img-container");
     container.style.left = percent_left + "%";
 }
+
 function center_appropriately_h() {
     var orig_h = document.getElementById("original").style.height;
     orig_h = orig_h.replace('px','');
@@ -141,6 +159,11 @@ function center_appropriately_h() {
     container.style.top = percent_top*(2/3) + "%";
 }
 
+function clear_h() {
+    var container = document.getElementById("img-container");
+    container.style.top = null;
+}
+
 
 function random_spacing() {
     var spacing = "";
@@ -149,6 +172,7 @@ function random_spacing() {
         spacing = "center-top";
         random_size("horz");
         center_appropriately_w();
+        clear_h();
     }
     else if (rand >= 1 && rand < 2) {
         spacing = "center-center";
@@ -159,15 +183,18 @@ function random_spacing() {
     else if (rand >= 2 && rand < 3) {
         spacing = "left-top"
         random_size("vert");
+        clear_h();
     }
     else if (rand >= 3 && rand < 4) {
         spacing = "right-bottom"
         random_size("vert");
+        clear_h();
     }
     else if (rand >= 4 && rand < 5) {
         spacing = "center-bottom"
         random_size("horz");
         center_appropriately_w();
+        clear_h();
     }
 
     var image_div = document.getElementById("img-container");
@@ -185,10 +212,17 @@ function update_pics() {
 
     //update photos shown
     var idx = Math.floor(Math.random() * animalSets.length);
+    if (idx == animal_set) {
+        update_pics();
+    } 
+    else {
+        animal_set = idx;
+    }
     var animalSet = animalSets[idx];
     document.getElementById("original").setAttribute('src', 'images/'.concat(animalSet[0]));
     document.getElementById("parsed").setAttribute('src', 'images/'.concat(animalSet[1]));
     document.getElementById("result").setAttribute('src', 'images/'.concat(animalSet[2]));
 
     random_spacing();
+    random_btn_spot();
 }
