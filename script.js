@@ -56,19 +56,29 @@ update_pics();
 //COME UP WITH SOMETHING MORE: ANCHOR POINT LIKE TEXT-- name the animals or something
 //FIX WHITE EDGES
 
-function random_size(orientation) { //UPADATE BASED ON WINDOW SIZE SO IT DOESNT GO OVER
+function random_size(orientation) { //UPADATE BASED ON WINDOW SIZE SO IT DOESNT GO OVER, 
+                                    //also calculation to see how centered it can be based off how much of the 
+                                    //screen all images take up
+                                    //PICTURES + 10PX PADDING ALL SIDES
     var window_width = window.innerWidth;
     var window_height = window.innerHeight;
-    
+    console.log(window_width);
+    console.log(window_height);
+
     var orig_img = document.getElementById("original");
     var parsed_img = document.getElementById("parsed");
     var res_img = document.getElementById("result");
 
-    if (orientation == "vert") {  //height < 100 %
+    if (orientation == "vert")  {  //height < 100 %
         var h1 = Math.floor(Math.random() * 100) + 250;
-        var h2 = Math.floor(Math.random() * 75) + 150;
-        var h3 = Math.floor(Math.random() * 50) + 50;
-
+            var h2 = Math.floor(Math.random() * 75) + 150;
+            var h3 = Math.floor(Math.random() * 50) + 50;
+        if (window_height < 825) {
+            var ratio = window_height/825;
+            h1 = h1 * ratio;
+            h2 = h2 * ratio;
+            h3 = h3 * ratio;
+        }
         res_img.style.height = h1 + "px";
         res_img.style.width = (h1 * 1.2) + "px";
 
@@ -77,23 +87,60 @@ function random_size(orientation) { //UPADATE BASED ON WINDOW SIZE SO IT DOESNT 
 
         orig_img.style.height =  h3 + "px";
         orig_img.style.width = (h3 * 1.2) + "px";
-
     }
     else if (orientation == "horz") { //width < 100%
-        var w1 = Math.floor(Math.random() * 200) + 500; 
-        var w2 = Math.floor(Math.random() * 150) + 300; 
-        var w3 = Math.floor(Math.random() * 50) + 200; 
+        var w1 = Math.floor(Math.random() * 200) + 450; 
+            var w2 = Math.floor(Math.random() * 150) + 300; 
+            var w3 = Math.floor(Math.random() * 50) + 200; 
+
+        if (window_width < 1350) {
+            var ratio = window_width/1350;
+            w1 = w1 * ratio;
+            w2 = w2 * ratio;
+            w3 = w3 * ratio;
+        }
 
         res_img.style.height = (w1/1.2) + "px";
         res_img.style.width = w1 + "px";
-
+    
         parsed_img.style.height =  (w2/1.2) + "px";
         parsed_img.style.width = w2 + "px";
-
+    
         orig_img.style.height =  (w3/1.2) + "px";
         orig_img.style.width = w3 + "px";
     }
 }
+
+function center_appropriately_w() {
+    var orig_w = document.getElementById("original").style.width;
+    orig_w = orig_w.replace('px','');
+    orig_w = parseInt(orig_w);
+    var parsed_w = document.getElementById("parsed").style.width;
+    parsed_w = parsed_w.replace('px','');
+    parsed_w = parseInt(parsed_w);
+    var res_w = document.getElementById("result").style.width;
+    res_w = res_w.replace('px','');
+    res_w = parseInt(res_w);
+
+    var sum = orig_w + parsed_w + res_w + 60;
+    var ratio = sum/window.innerWidth;
+    var percent_left = ((1 - ratio)/2)*100 + 3;
+    var container = document.getElementById("img-container");
+    container.style.left = percent_left + "%";
+}
+function center_appropriately_h() {
+    var orig_h = document.getElementById("original").style.height;
+    orig_h = orig_h.replace('px','');
+    orig_h = parseInt(orig_h);
+    console.log("orig_h: " + orig_h)
+    var ratio_h = (orig_h + 20)/window.innerHeight;
+    console.log("ratio_h: " + ratio_h)
+    var percent_top = ((1 - ratio_h)/2)*100;
+    console.log("percent_top: " + percent_top)
+    var container = document.getElementById("img-container");
+    container.style.top = percent_top*(2/3) + "%";
+}
+
 
 function random_spacing() {
     var spacing = "";
@@ -101,10 +148,13 @@ function random_spacing() {
     if (rand < 1) {
         spacing = "center-top";
         random_size("horz");
+        center_appropriately_w();
     }
     else if (rand >= 1 && rand < 2) {
         spacing = "center-center";
         random_size("horz");
+        center_appropriately_w();
+        center_appropriately_h();
     }
     else if (rand >= 2 && rand < 3) {
         spacing = "left-top"
@@ -117,6 +167,7 @@ function random_spacing() {
     else if (rand >= 4 && rand < 5) {
         spacing = "center-bottom"
         random_size("horz");
+        center_appropriately_w();
     }
 
     var image_div = document.getElementById("img-container");
