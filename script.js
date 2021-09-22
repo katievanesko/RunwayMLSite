@@ -74,6 +74,38 @@ function random_btn_spot(){
     var btn = document.getElementById("refresh");
     btn.style.top = top + "%";
     btn.style.left = left + "%";
+
+    while (!check_overlap_all()) {
+        var top = Math.floor(Math.random()*95);
+        var left = Math.floor(Math.random()*95);
+        var btn = document.getElementById("refresh");
+        btn.style.top = top + "%";
+        btn.style.left = left + "%";
+    }
+    check_overlap_all();
+}
+
+function check_overlap_all() {
+    var btn = document.getElementById("refresh").getBoundingClientRect();
+    var p1 = document.getElementById("original").getBoundingClientRect();
+    var p2 = document.getElementById("parsed").getBoundingClientRect();
+    var p3 = document.getElementById("result").getBoundingClientRect();
+
+    if (check_no_overlap(btn, p1) && check_no_overlap(btn, p2) && check_no_overlap(btn, p3)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function check_no_overlap(btn, pic) {
+    var overlap = (btn.right < pic.left || 
+        btn.left > pic.right || 
+        btn.bottom < pic.top || 
+        btn.top > pic.bottom)
+        console.log(pic + ": " + overlap);
+    return overlap;
 }
 
 function random_size(orientation) { 
