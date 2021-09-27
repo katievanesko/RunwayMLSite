@@ -51,14 +51,12 @@ animalSets.push(doggos);
 animalSets.push(sheep);
 animalSets.push(hummingbirds);
 
-
 var animal_set = 0;
-setup_btn();
 
 window.onload = function() {
     update_pics();
+    setup_btn();
 }  
-
 
 //COME UP WITH SOMETHING MORE: ANCHOR POINT LIKE TEXT-- name the animals or something
 
@@ -82,7 +80,6 @@ function random_btn_spot(){
         btn.style.top = top + "%";
         btn.style.left = left + "%";
     }
-    check_overlap_all();
 }
 
 function check_overlap_all() {
@@ -104,15 +101,12 @@ function check_no_overlap(btn, pic) {
         btn.left > pic.right || 
         btn.bottom < pic.top || 
         btn.top > pic.bottom)
-        console.log(pic + ": " + overlap);
     return overlap;
 }
 
 function random_size(orientation) { 
     var window_width = window.innerWidth;
     var window_height = window.innerHeight;
-    console.log(window_width);
-    console.log(window_height);
 
     var orig_img = document.getElementById("original");
     var parsed_img = document.getElementById("parsed");
@@ -182,11 +176,8 @@ function center_appropriately_h() {
     var orig_h = document.getElementById("original").style.height;
     orig_h = orig_h.replace('px','');
     orig_h = parseInt(orig_h);
-    console.log("orig_h: " + orig_h)
     var ratio_h = (orig_h + 20)/window.innerHeight;
-    console.log("ratio_h: " + ratio_h)
     var percent_top = ((1 - ratio_h)/2)*100;
-    console.log("percent_top: " + percent_top)
     var container = document.getElementById("img-container");
     container.style.top = percent_top*(2/3) + "%";
 }
